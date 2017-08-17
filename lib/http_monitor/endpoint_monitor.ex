@@ -20,7 +20,7 @@ defmodule HttpMonitor.EndpointMonitor do
     end
   end
 
-  def handle_info({:DOWN, ref, :process, _pid, :shutdown}, state = %{from_ref: ref}) do
+  def handle_info({:DOWN, ref, :process, _pid, _reason}, state = %{from_ref: ref}) do
     {:stop, :normal, state}
   end
 
