@@ -25,9 +25,19 @@ defmodule HttpMonitor.EndpointMonitor do
   end
 
   defp endpoint_up?(%{endpoint: endpoint}) do
-    case HTTPoison.get(endpoint) do
+    case retry(1, fn -> HTTPoison.get(endpoint) end) do
       {:ok, res} -> res.status_code in (200..399)
       _ -> false
+    end
+  end
+
+  defp retry(0, yield) do
+    yield.()
+  end
+  defp retry(n, yield) when n > 0 do
+    case yield.() do
+      {:error, _} -> retry(n - 1, yield)
+      res -> res
     end
   end
 end
