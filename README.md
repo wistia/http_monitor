@@ -1,6 +1,10 @@
-# HttpMonitor
+# http_monitor
 
-a monitor implementation over http
+a [monitor](https://hexdocs.pm/elixir/Process.html#monitor/1) implementation over http
+
+## Why?
+
+[Monitors](https://hexdocs.pm/elixir/Process.html#monitor/1) are an extremely useful Erlang feature that allow you to detect when a process crashes. Erlang provides support for process monitoring as well as node monitoring. We run multi-node clusters however we use HTTP and Kubernetes instead of distributed Erlang. We still wanted a way to react to remote nodes (or more generically, other services) going down however thus we built a small library which periodically pings the remote service to make sure it is still alive. This is a form of heartbeating. `http_monitor` also gives you a nice OTP-like interface for handling when those remote services go down.
 
 ## Summary
 
