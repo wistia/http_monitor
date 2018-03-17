@@ -16,6 +16,14 @@ processes.
 Follows Kubernetes liveness probe conventions which treat anything with 200-399 as a successful
 heartbeat.
 
+## Installation
+
+```ex
+def deps do
+  [{:http_monitor, github: "wistia/http_monitor"}]
+end
+```
+
 ## Usage
 
 ```ex
